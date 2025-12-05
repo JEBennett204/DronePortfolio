@@ -1,0 +1,14 @@
+.DS_Store
+*.mp4
+*.webm
+Media/previews/
+Media/Boise Capitol/Videos/
+Media/Table-Rock/*.mp4
+Media/Table-Rock/*.webm
+Media/the-village/village-video.mp4
+
+# Keep images and thumbnails tracked
+!*.jpg
+!*.jpeg
+!*.png
+!*.webp
