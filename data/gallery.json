@@ -2,8 +2,13 @@
   "Me": [
     {
       "file": "Media/Me/Jake Bennett.jpg",
-      "thumb": "data/images/Me/thumb-Jake Bennett.jpg",
-      "webp": "data/images/Me/webp-Jake Bennett.webp",
+      "thumb": "data/images/Me/thumb-Jake Bennett-800.jpg",
+      "srcset": "data/images/Me/thumb-Jake Bennett-480.jpg 480w, data/images/Me/thumb-Jake Bennett-800.jpg 800w, data/images/Me/thumb-Jake Bennett-1280.jpg 1280w",
+      "webp_variants": {
+        "480": "data/images/Me/webp-Jake Bennett-480.webp",
+        "800": "data/images/Me/webp-Jake Bennett-800.webp",
+        "1280": "data/images/Me/webp-Jake Bennett-1280.webp"
+      },
       "name": "Jake Bennett.jpg",
       "width": 3320,
       "height": 3034,
@@ -68,12 +73,46 @@
       }
     }
   ],
-  "Table Rock": [],
+  "Table-Rock": [
+    {
+      "file": "Media/Table-Rock/poster-CraneUp-Table-Rock.jpg",
+      "thumb": "data/images/Table-Rock/thumb-poster-CraneUp-Table-Rock-800.jpg",
+      "srcset": "data/images/Table-Rock/thumb-poster-CraneUp-Table-Rock-480.jpg 480w, data/images/Table-Rock/thumb-poster-CraneUp-Table-Rock-800.jpg 800w, data/images/Table-Rock/thumb-poster-CraneUp-Table-Rock-1280.jpg 1280w",
+      "webp_variants": {
+        "480": "data/images/Table-Rock/webp-poster-CraneUp-Table-Rock-480.webp",
+        "800": "data/images/Table-Rock/webp-poster-CraneUp-Table-Rock-800.webp",
+        "1280": "data/images/Table-Rock/webp-poster-CraneUp-Table-Rock-1280.webp"
+      },
+      "name": "poster-CraneUp-Table-Rock.jpg",
+      "width": 3840,
+      "height": 2160,
+      "exif": {}
+    },
+    {
+      "file": "Media/Table-Rock/poster-Table-Rock-Flyover.jpg",
+      "thumb": "data/images/Table-Rock/thumb-poster-Table-Rock-Flyover-800.jpg",
+      "srcset": "data/images/Table-Rock/thumb-poster-Table-Rock-Flyover-480.jpg 480w, data/images/Table-Rock/thumb-poster-Table-Rock-Flyover-800.jpg 800w, data/images/Table-Rock/thumb-poster-Table-Rock-Flyover-1280.jpg 1280w",
+      "webp_variants": {
+        "480": "data/images/Table-Rock/webp-poster-Table-Rock-Flyover-480.webp",
+        "800": "data/images/Table-Rock/webp-poster-Table-Rock-Flyover-800.webp",
+        "1280": "data/images/Table-Rock/webp-poster-Table-Rock-Flyover-1280.webp"
+      },
+      "name": "poster-Table-Rock-Flyover.jpg",
+      "width": 3840,
+      "height": 2160,
+      "exif": {}
+    }
+  ],
   "the-village": [
     {
       "file": "Media/the-village/Village 1.jpg",
-      "thumb": "data/images/the-village/thumb-Village 1.jpg",
-      "webp": "data/images/the-village/webp-Village 1.webp",
+      "thumb": "data/images/the-village/thumb-Village-1-800.jpg",
+      "srcset": "data/images/the-village/thumb-Village-1-480.jpg 480w, data/images/the-village/thumb-Village-1-800.jpg 800w, data/images/the-village/thumb-Village-1-1280.jpg 1280w",
+      "webp_variants": {
+        "480": "data/images/the-village/webp-Village-1-480.webp",
+        "800": "data/images/the-village/webp-Village-1-800.webp",
+        "1280": "data/images/the-village/webp-Village-1-1280.webp"
+      },
       "name": "Village 1.jpg",
       "width": 4032,
       "height": 2268,
@@ -159,8 +198,13 @@
     },
     {
       "file": "Media/the-village/Village 2.jpg",
-      "thumb": "data/images/the-village/thumb-Village 2.jpg",
-      "webp": "data/images/the-village/webp-Village 2.webp",
+      "thumb": "data/images/the-village/thumb-Village-2-800.jpg",
+      "srcset": "data/images/the-village/thumb-Village-2-480.jpg 480w, data/images/the-village/thumb-Village-2-800.jpg 800w, data/images/the-village/thumb-Village-2-1280.jpg 1280w",
+      "webp_variants": {
+        "480": "data/images/the-village/webp-Village-2-480.webp",
+        "800": "data/images/the-village/webp-Village-2-800.webp",
+        "1280": "data/images/the-village/webp-Village-2-1280.webp"
+      },
       "name": "Village 2.jpg",
       "width": 4032,
       "height": 2268,

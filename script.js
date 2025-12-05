@@ -1,5 +1,7 @@
 // Tab Navigation
 document.addEventListener('DOMContentLoaded', function() {
+    // Mark that JS is active for CSS progressive enhancement
+    try { document.body.classList.add('js'); } catch (_) {}
     const navLinks = document.querySelectorAll('.nav-link');
     const tabContents = document.querySelectorAll('.tab-content');
     let lastFocusedElement = null;
@@ -13,11 +15,12 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             
             // Remove active class from all links and content
-            navLinks.forEach(l => l.classList.remove('active'));
+            navLinks.forEach(l => { l.classList.remove('active'); l.removeAttribute('aria-current'); });
             tabContents.forEach(content => content.classList.remove('active'));
             
             // Add active class to clicked link
             this.classList.add('active');
+            this.setAttribute('aria-current','page');
             
             // Show corresponding content
             const tabId = this.getAttribute('data-tab');
@@ -46,10 +49,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Check for hash on page load
+    // Ensure a visible default tab on load
     const initialHash = window.location.hash.substring(1);
     if (initialHash) {
         activateTab(initialHash);
+    } else {
+        // Failsafe: if no active content, set Home active
+        const anyActive = document.querySelector('.tab-content.active');
+        if (!anyActive) {
+            const homeLink = document.querySelector('.nav-link[data-tab="home"]');
+            const homeSection = document.getElementById('home');
+            if (homeLink) { homeLink.classList.add('active'); homeLink.setAttribute('aria-current','page'); }
+            if (homeSection) { homeSection.classList.add('active'); }
+            // Also set the URL hash to stabilize navigation state
+            try { history.replaceState(null, '', '#home'); } catch (_) {}
+        }
     }
 
     // (nav underline removed) — navigation uses simple active state without animated underline
@@ -128,13 +142,15 @@ document.addEventListener('DOMContentLoaded', function() {
         if (meta) meta.setAttribute('aria-hidden', 'true');
         modal.querySelector('.video-modal__dialog')?.classList.remove('with-meta');
         currentIndex = -1;
-        modalClose.focus();
+        const iframe = document.createElement('iframe');
         iframe.setAttribute('src', src);
         iframe.setAttribute('title', title);
         iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
         iframe.setAttribute('allowfullscreen', '');
         modalContent.appendChild(iframe);
         modalClose.focus();
+        // enable focus trap while modal is open
+        enableModalFocusTrap(modal);
     }
 
     // Open image by gallery index (preferred) or by src
@@ -188,6 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // focus the close button for keyboard users
         modal.querySelector('.video-modal__close').focus();
+        enableModalFocusTrap(modal);
     }
 
     function openModalWithImage(src, alt) {
@@ -210,10 +227,13 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.querySelector('.video-modal__dialog')?.classList.remove('with-meta');
         currentIndex = -1;
         modal.querySelector('.video-modal__close').focus();
+        enableModalFocusTrap(modal);
     }
     function closeModal() {
         modal.setAttribute('aria-hidden', 'true');
         modalContent.innerHTML = '';
+        // disable focus trap
+        disableModalFocusTrap();
         if (lastFocusedElement) lastFocusedElement.focus();
     }
 
@@ -230,6 +250,213 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Wire play buttons (and thumbnail containers) to open modal and/or play
+    document.querySelectorAll('[data-play-src]').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const src = this.getAttribute('data-play-src');
+            const poster = this.getAttribute('data-poster') || null;
+            // open modal and autoplay since this is a user gesture
+            openModalWithLocalVideo(src, this.getAttribute('data-title') || 'Video', poster, true);
+        });
+    });
+
+    // Add thumbnail play overlay behavior and hover preview
+    document.querySelectorAll('.video-thumb').forEach(th => {
+        let previewTimeout = null;
+        let previewVideo = null;
+
+        function clearPreview() {
+            if (previewTimeout) { clearTimeout(previewTimeout); previewTimeout = null; }
+            if (previewVideo && previewVideo.parentNode) {
+                try { previewVideo.pause(); } catch (e) {}
+                previewVideo.remove();
+            }
+            previewVideo = null;
+        }
+
+        th.addEventListener('mouseenter', function(e) {
+            // start a short preview after metadata loads; muted autoplay for preview
+            const src = th.getAttribute('data-play-src');
+            if (!src) return;
+            // Prefer dedicated preview clip if provided
+            const previewSrc = th.getAttribute('data-preview-src');
+            const baseSrc = previewSrc || src;
+            clearPreview();
+            previewVideo = document.createElement('video');
+            previewVideo.className = 'preview-video';
+            previewVideo.muted = true;
+            previewVideo.setAttribute('muted', '');
+            previewVideo.setAttribute('playsinline', '');
+            previewVideo.preload = 'auto';
+            previewVideo.autoplay = true;
+            // small preview length in ms
+            const PREVIEW_MS = 3500;
+            // Prefer .webm if available (graceful fallback to .mp4)
+            try {
+                const webmEl = document.createElement('source');
+                const webmUrl = baseSrc.endsWith('.mp4') ? baseSrc.replace(/\.mp4$/i, '.webm') : baseSrc.replace(/\.mov$/i, '.webm');
+                webmEl.src = encodeURI(webmUrl);
+                webmEl.type = 'video/webm';
+                previewVideo.appendChild(webmEl);
+            } catch (e) {}
+            const sEl = document.createElement('source');
+            try { sEl.src = encodeURI(baseSrc); } catch (e) { sEl.src = baseSrc; }
+            sEl.type = 'video/mp4';
+            previewVideo.appendChild(sEl);
+            th.appendChild(previewVideo);
+
+            // Fallback start in case metadata events delay
+            let fallbackKickoff = setTimeout(() => {
+                startPlayback();
+                scheduleCleanup();
+            }, 350);
+
+            // Force metadata load so hover preview reliably starts
+            previewVideo.autoplay = true;
+            try { previewVideo.load(); } catch (e) {}
+
+            // When metadata loaded, seek to middle then play briefly
+            // when metadata is ready, seek to middle and play on 'seeked'
+            // Try to seek to an early frame (some servers don't support ranged seeks to the midpoint)
+            let attemptPlayFallback = null;
+            const startPlayback = function() {
+                const playPromise = previewVideo.play();
+                if (playPromise && playPromise.catch) playPromise.catch(() => {});
+            };
+            const scheduleCleanup = () => { previewTimeout = setTimeout(() => { clearPreview(); }, PREVIEW_MS); };
+            const onLoaded = function() {
+                try {
+                    const dur = previewVideo.duration || 0;
+                    const target = (dur && dur > 2) ? Math.min(0.8, dur * 0.1) : 0.5;
+                    const thumbImg = th.querySelector('.video-thumb__img');
+                    if (thumbImg && thumbImg.src) previewVideo.setAttribute('poster', thumbImg.src);
+                    previewVideo.currentTime = target;
+                    attemptPlayFallback = setTimeout(() => { startPlayback(); scheduleCleanup(); }, 500);
+                } catch (e) {
+                    startPlayback();
+                    scheduleCleanup();
+                }
+            };
+
+            const onSeeked = function() {
+                if (attemptPlayFallback) { clearTimeout(attemptPlayFallback); attemptPlayFallback = null; }
+                startPlayback();
+                scheduleCleanup();
+            };
+
+            previewVideo.addEventListener('loadedmetadata', onLoaded, { once: true });
+            previewVideo.addEventListener('canplay', () => { if (!previewTimeout) startPlayback(); }, { once: true });
+            previewVideo.addEventListener('seeked', onSeeked, { once: true });
+            // safety: remove preview if any error
+            previewVideo.addEventListener('error', function() { clearPreview(); });
+
+            // Clear fallback when we actually kick off
+            previewVideo.addEventListener('play', () => { if (fallbackKickoff) { clearTimeout(fallbackKickoff); fallbackKickoff = null; } }, { once: true });
+        });
+
+        th.addEventListener('mouseleave', function() { clearPreview(); });
+        th.addEventListener('blur', function() { clearPreview(); });
+
+        // Keyboard / click on thumbnail opens modal and starts playback
+        th.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const src = th.getAttribute('data-play-src');
+            const poster = th.getAttribute('data-poster') || null;
+            openModalWithLocalVideo(src, th.getAttribute('aria-label') || 'Video', poster, true);
+        });
+        th.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); th.click(); }
+        });
+    });
+
+    function openModalWithLocalVideo(src, title, poster = null, autoplay = false) {
+        lastFocusedElement = document.activeElement;
+        modal.setAttribute('aria-hidden', 'false');
+        modalContent.innerHTML = '';
+        const video = document.createElement('video');
+        // ensure native controls are present and video will play inline on mobile
+        video.setAttribute('controls', '');
+        video.setAttribute('playsinline', '');
+        video.setAttribute('preload', 'metadata');
+        video.style.objectFit = 'contain';
+        video.style.background = 'rgba(85,57,21,0.06)';
+        video.setAttribute('aria-label', title || 'Video');
+        // allow keyboard focus if desired (tabindex -1 keeps it programmatic-focusable)
+        video.tabIndex = -1;
+
+        // Primary source (MP4)
+        const srcEl = document.createElement('source');
+        try {
+            srcEl.src = encodeURI(src);
+        } catch (err) {
+            srcEl.src = src;
+        }
+        srcEl.type = 'video/mp4';
+        video.appendChild(srcEl);
+
+        // Optional: add a webm fallback if a similarly named .webm exists on the server
+        try {
+            const webmUrl = src.replace(/\.mp4$/i, '.webm');
+            const webmEl = document.createElement('source');
+            webmEl.src = encodeURI(webmUrl);
+            webmEl.type = 'video/webm';
+            video.appendChild(webmEl);
+        } catch (e) {
+            // ignore if construction fails
+        }
+
+        // Autoplay only when requested (and allowed by browser)
+        video.autoplay = !!autoplay;
+        if (poster) video.setAttribute('poster', poster);
+        modalContent.appendChild(video);
+        const meta = modal.querySelector('.video-modal__meta');
+        if (meta) meta.setAttribute('aria-hidden', 'true');
+        modal.querySelector('.video-modal__dialog')?.classList.remove('with-meta');
+        // Ensure the video element loads the metadata and is visible
+        try { video.load(); } catch (e) {}
+        // give screen-reader users and keyboard users focus to the close button first
+        const closeBtn = modal.querySelector('.video-modal__close');
+        if (closeBtn) closeBtn.focus();
+        if (autoplay) {
+            // user gesture triggered (click) — attempt to play
+            setTimeout(() => {
+                try { video.play().catch(() => {}); } catch (e) {}
+            }, 100);
+        }
+        enableModalFocusTrap(modal);
+    }
+
+    // Focus trap implementation for modal
+    let _modalKeydownHandler = null;
+    function enableModalFocusTrap(modalEl) {
+        const focusableSelector = 'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])';
+        const focusable = Array.from(modalEl.querySelectorAll(focusableSelector)).filter(el => !el.hasAttribute('disabled'));
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        _modalKeydownHandler = function(e) {
+            if (e.key === 'Tab') {
+                if (e.shiftKey) {
+                    if (document.activeElement === first) {
+                        e.preventDefault(); last.focus();
+                    }
+                } else {
+                    if (document.activeElement === last) {
+                        e.preventDefault(); first.focus();
+                    }
+                }
+            }
+            // Close modal with Escape (already handled globally but keep local guard)
+            if (e.key === 'Escape') closeModal();
+        };
+        document.addEventListener('keydown', _modalKeydownHandler);
+    }
+    function disableModalFocusTrap() {
+        if (_modalKeydownHandler) document.removeEventListener('keydown', _modalKeydownHandler);
+        _modalKeydownHandler = null;
+    }
 
             galleryItems = [];
     // --- Photo gallery interactions (card-based) ---
@@ -254,20 +481,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (photoFilterVillage) photoFilterVillage.addEventListener('click', () => filterPhotos('the-village'));
     if (photoFilterTableRock) photoFilterTableRock.addEventListener('click', () => filterPhotos('table-rock'));
 
-    function openModalWithImage(src, alt) {
-        lastFocusedElement = document.activeElement;
-        modal.setAttribute('aria-hidden', 'false');
-        modalContent.innerHTML = '';
-        const img = document.createElement('img');
-        img.src = src;
-        img.alt = alt || '';
-        img.style.width = '100%';
-        img.style.height = '100%';
-        img.style.objectFit = 'contain';
-        img.loading = 'eager';
-        modalContent.appendChild(img);
-        modalClose.focus();
-    }
+    
 
     // Delegate clicks inside photos grid for better dynamic compatibility
     if (photosGrid) {

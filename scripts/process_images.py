@@ -21,7 +21,8 @@ MEDIA = os.path.join(ROOT, 'Media')
 OUT_DIR = os.path.join(ROOT, 'data')
 IMG_OUT = os.path.join(OUT_DIR, 'images')
 
-THUMB_SIZE = (800, 800)
+# Responsive thumbnail sizes (width values)
+THUMB_SIZES = [480, 800, 1280]
 THUMB_QUIALITY = 80
 
 ALLOWED = {'.jpg', '.jpeg', '.png', '.webp'}
@@ -78,30 +79,60 @@ def process():
                 print('Skipping', src, 'error', e)
                 continue
             base = os.path.splitext(fname)[0]
-            thumb_name = f'thumb-{base}.jpg'
-            webp_name = f'webp-{base}.webp'
-            thumb_path = os.path.join(out_cat, thumb_name)
-            webp_path = os.path.join(out_cat, webp_name)
-
-            # create thumbnail
-            im_thumb = im.copy()
-            im_thumb.thumbnail(THUMB_SIZE)
-            im_thumb.save(thumb_path, 'JPEG', quality=THUMB_QUIALITY)
-
-            # create webp
-            try:
-                im.save(webp_path, 'WEBP', quality=85)
-            except Exception:
-                # fallback: convert and save
-                im.convert('RGB').save(webp_path, 'WEBP', quality=85)
-
             width, height = im.size
             exif = get_exif(im)
 
+            # Generate responsive thumbnails and webp variants
+            srcset_parts = []
+            webp_variants = {}
+            thumb_default = None
+            for w in THUMB_SIZES:
+                thumb_name = f'thumb-{base}-{w}.jpg'
+                webp_name = f'webp-{base}-{w}.webp'
+                thumb_path = os.path.join(out_cat, thumb_name)
+                webp_path = os.path.join(out_cat, webp_name)
+
+                # create resized thumbnail while keeping aspect ratio
+                im_thumb = im.copy()
+                target_w = w
+                # compute target height maintaining aspect ratio
+                target_h = int((target_w / width) * height) if width else THUMB_SIZES[0]
+                try:
+                    im_resized = im_thumb.resize((target_w, target_h), Image.LANCZOS)
+                except Exception:
+                    im_resized = im_thumb.copy()
+                    im_resized.thumbnail((target_w, target_h))
+
+                # save jpeg
+                try:
+                    im_resized.save(thumb_path, 'JPEG', quality=THUMB_QUIALITY)
+                except Exception:
+                    im_resized.convert('RGB').save(thumb_path, 'JPEG', quality=THUMB_QUIALITY)
+
+                # save webp
+                try:
+                    im_resized.save(webp_path, 'WEBP', quality=85)
+                except Exception:
+                    try:
+                        im_resized.convert('RGB').save(webp_path, 'WEBP', quality=85)
+                    except Exception:
+                        pass
+
+                rel_thumb = os.path.relpath(thumb_path, ROOT).replace('\\', '/')
+                rel_webp = os.path.relpath(webp_path, ROOT).replace('\\', '/')
+                srcset_parts.append(f"{rel_thumb} {w}w")
+                webp_variants[str(w)] = rel_webp
+                if w == 800:
+                    thumb_default = rel_thumb
+
+            if not thumb_default:
+                thumb_default = src
+
             gallery[category].append({
                 'file': os.path.relpath(src, ROOT).replace('\\', '/'),
-                'thumb': os.path.relpath(thumb_path, ROOT).replace('\\', '/'),
-                'webp': os.path.relpath(webp_path, ROOT).replace('\\', '/'),
+                'thumb': thumb_default,
+                'srcset': ', '.join(srcset_parts),
+                'webp_variants': webp_variants,
                 'name': fname,
                 'width': width,
                 'height': height,

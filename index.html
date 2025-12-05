@@ -4,38 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boise Drone Portfolio</title>
+    <!-- Performance: preconnect to video/image providers -->
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="preconnect" href="https://i.ytimg.com">
+    <link rel="preconnect" href="https://static.kuula.io">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- Header with Navigation -->
-    <header>
-        <nav class="navbar">
-            <div class="logo">Boise Aerial</div>
+    <header role="banner">
+        <nav class="navbar" role="navigation" aria-label="Primary">
+            <div class="logo">Jake Bennett</div>
             <ul class="nav-links">
-                <li><a href="#home" class="nav-link active" data-tab="home">Home</a></li>
-                <li><a href="#models" class="nav-link" data-tab="models">3D Models</a></li>
-                <li><a href="#tours" class="nav-link" data-tab="tours">360° Tours</a></li>
-                <li><a href="#videos" class="nav-link" data-tab="videos">Videos</a></li>
+                <li><a href="#home" class="nav-link active" data-tab="home"><span class="nav-label">Home</span></a></li>
+                <li><a href="#models" class="nav-link" data-tab="models"><span class="nav-label">3D Models</span></a></li>
+                <li><a href="#tours" class="nav-link" data-tab="tours"><span class="nav-label">360° Tours</span></a></li>
+                <li><a href="#photos" class="nav-link" data-tab="photos"><span class="nav-label">Photos</span></a></li>
+                <li><a href="#videos" class="nav-link" data-tab="videos"><span class="nav-label">Videos</span></a></li>
+                <li><a href="#about" class="nav-link" data-tab="about"><span class="nav-label">About</span></a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Main Content -->
-    <main>
-        <!-- Home Section with 360 Photo Landing -->
+    <main id="main" role="main">
         <section id="home" class="tab-content active">
             <div class="hero-section">
-                <div class="hero-360">
-                    <!-- Featured YouTube Video Embed -->
-                    <iframe width="100%" height="640" style="width: 100%; height: 100%; border: none; max-width: 100%;" 
-                            src="https://www.youtube.com/embed/ERdTZ5Tfw8U?autoplay=1&mute=1&loop=1&playlist=ERdTZ5Tfw8U&rel=0" 
-                            title="The Village at Meridian, Julius M. Kleiner Memorial Park" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
-                    </iframe>
+                <div class="hero-360" aria-label="Hero 360 panorama">
+                        <!-- Kuula 360 Photo Embed (main hero) -->
+                        <iframe
+                            title="Boise 360° Panorama"
+                            src="https://kuula.co/share/collection/7HbnG?logo=1&info=1&fs=1&vr=0&thumbs=1&autoplay=1"
+                            width="100%"
+                            height="640"
+                            frameborder="0"
+                            allow="autoplay; fullscreen; accelerometer; gyroscope; xr-spatial-tracking"
+                            allowfullscreen
+                            loading="lazy"
+                            aria-label="Boise 360 panorama">
+                        </iframe>
                     <div class="hero-text">
-                        <h1>The Village at Meridian</h1>
-                        <p>Julius M. Kleiner Memorial Park</p>
+                        <h1>Boise, ID</h1>
+                        <p>Your local professional for Aerial Photography & Videography</p>
                     </div>
                 </div>
             </div>
@@ -46,186 +56,412 @@
                 <div class="featured-grid">
                     <div class="featured-item">
                         <div class="featured-image">
-                            <iframe width="100%" height="100%" style="border: none;" 
-                                    src="https://www.youtube.com/embed/ERdTZ5Tfw8U?rel=0" 
-                                    title="The Village at Meridian, Julius M. Kleiner Memorial Park" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen>
+                            <iframe
+                                title="Boise State 360° Tour"
+                                src="https://kuula.co/share/collection/7Hh8t?logo=1&info=1&fs=1&vr=0&thumbs=1&autoplay=1"
+                                width="100%"
+                                height="400"
+                                frameborder="0"
+                                allow="autoplay; fullscreen; accelerometer; gyroscope; xr-spatial-tracking"
+                                allowfullscreen
+                                loading="lazy"
+                                aria-label="Boise State 360 tour">
                             </iframe>
                         </div>
-                        <h3>The Village at Meridian, Julius M. Kleiner Memorial Park</h3>
-                        <p>Signature aerial overview of The Village and Julius M. Kleiner Memorial Park</p>
+                        <h3>Boise State University — 360° Tour</h3>
+                        <p>Campus 360° virtual tour showcasing the grounds and facilities.</p>
                     </div>
+
                     <div class="featured-item">
-                        <div class="featured-image video-frame">
-                            <iframe width="100%" height="100%" 
-                                    src="https://www.youtube.com/embed/ERdTZ5Tfw8U?rel=0" 
-                                    title="The Village at Meridian, Julius M. Kleiner Memorial Park" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen>
-                            </iframe>
+                        <div class="featured-image">
+                            <iframe title="Boise Capitol 3D Model" src="https://lumalabs.ai/embed/795a717a-b3d5-4139-a1b0-81a00bbae42e?mode=sparkles&background=%23ffffff&color=%23000000&showTitle=true&loadBg=true&logoPosition=bottom-left&infoPosition=bottom-right&cinematicVideo=undefined&showMenu=true" loading="lazy" style="width:100%;height:100%;border:0;" allowfullscreen aria-label="Boise Capitol 3D Model"></iframe>
+                        </div>
+                        <h3>Boise Capitol — 3D Model</h3>
+                        <p>High-detail reconstruction of the Idaho State Capitol.</p>
+                    </div>
+
+                    <div class="featured-item">
+                        <div class="featured-image video-embed">
+                            <div class="video-thumb" tabindex="0" role="button" aria-label="Play The Village video" data-play-src="Media/the-village/village-video.mp4" data-preview-src="Media/previews/village-video-preview.mp4" data-poster="data/images/the-village/thumb-Village-1-800.jpg">
+                                <img class="video-thumb__img" src="data/images/the-village/thumb-Village-1-800.jpg" alt="The Village video thumbnail" loading="lazy">
+                                <button class="thumb-play" aria-hidden="true">▶</button>
+                            </div>
                         </div>
                         <h3>The Village at Meridian, Julius M. Kleiner Memorial Park</h3>
-                        <p>Signature aerial overview of The Village and Julius M. Kleiner Memorial Park</p>
+                        <p>Aerial video over the park's ponds and surrounding area</p>
                     </div>
-                    <div class="featured-item">
-                        <div class="featured-image placeholder">
-                            <span>3D Model Preview</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Photos Section -->
+        <section id="photos" class="tab-content">
+            <div class="section">
+                <div class="section-hero">
+                    <div class="lead">
+                        <h2>Photos</h2>
+                        <p class="lead">Organized aerial photos by location and subject. Click to enlarge for full resolution.</p>
+                    </div>
+                    <div class="cta-group">
+                        <button class="btn" id="photos-filter-all">All</button>
+                        <button class="btn secondary" id="photos-filter-village">The Village</button>
+                    </div>
+                </div>
+
+                <!-- Kuula embed removed from Photos section per user request -->
+
+                <div class="cards-grid" id="photos-grid">
+                    <article class="card" data-type="the-village">
+                        <div class="card-media">
+                            <img src="Media/the-village/Village 1.jpg" alt="The Village - Pond and walkways" loading="lazy" tabindex="0" data-full="Media/the-village/Village 1.jpg">
                         </div>
-                        <h3>Downtown Boise</h3>
-                        <p>3D Reconstruction</p>
-                    </div>
+                        <div class="card-body">
+                            <div class="card-title">The Village — Pond View</div>
+                            <div class="card-meta">Meridian, ID • Aerial photo</div>
+                            <div class="card-actions">
+                                <button class="btn" data-open-photo="Media/the-village/Village 1.jpg">View</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card" data-type="the-village">
+                        <div class="card-media">
+                            <img src="Media/the-village/Village 2.jpg" alt="The Village - Overhead" loading="lazy" tabindex="0" data-full="Media/the-village/Village 2.jpg">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">The Village — Overhead</div>
+                            <div class="card-meta">Meridian, ID • Aerial photo</div>
+                            <div class="card-actions">
+                                <button class="btn" data-open-photo="Media/the-village/Village 2.jpg">View</button>
+                            </div>
+                        </div>
+                    </article>
+
+                        <article class="card" data-type="boise-capitol">
+                            <div class="card-media">
+                                <img src="Media/Boise Capitol/Photos/dji_fly_20251204_151358_0006_1764890606454_pano.jpg" alt="Boise Capitol panorama aerial" loading="lazy" tabindex="0" data-full="Media/Boise Capitol/Photos/dji_fly_20251204_151358_0006_1764890606454_pano.jpg">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-title">Boise Capitol — Panorama</div>
+                                <div class="card-meta">Boise, ID • Aerial panorama</div>
+                                <div class="card-actions">
+                                    <button class="btn" data-open-photo="Media/Boise Capitol/Photos/dji_fly_20251204_151358_0006_1764890606454_pano.jpg">View</button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="card" data-type="boise-capitol">
+                            <div class="card-media">
+                                <img src="Media/Boise Capitol/Photos/dji_fly_20251204_151402_0007_1764890617273_photo.jpg" alt="Boise Capitol aerial oblique" loading="lazy" tabindex="0" data-full="Media/Boise Capitol/Photos/dji_fly_20251204_151402_0007_1764890617273_photo.jpg">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-title">Boise Capitol</div>
+                                <div class="card-meta">Boise, ID • Aerial photo</div>
+                                <div class="card-actions">
+                                    <button class="btn" data-open-photo="Media/Boise Capitol/Photos/dji_fly_20251204_151402_0007_1764890617273_photo.jpg">View</button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="card" data-type="boise-capitol">
+                            <div class="card-media">
+                                <img src="Media/Boise Capitol/Photos/dji_fly_20251204_151426_0008_1764890605254_photo.jpg" alt="Boise Capitol aerial south" loading="lazy" tabindex="0" data-full="Media/Boise Capitol/Photos/dji_fly_20251204_151426_0008_1764890605254_photo.jpg">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-title">Boise Capitol</div>
+                                <div class="card-meta">Boise, ID • Aerial photo</div>
+                                <div class="card-actions">
+                                    <button class="btn" data-open-photo="Media/Boise Capitol/Photos/dji_fly_20251204_151426_0008_1764890605254_photo.jpg">View</button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="card" data-type="boise-capitol">
+                            <div class="card-media">
+                                <img src="Media/Boise Capitol/Photos/dji_fly_20251204_151432_0009_1764890604891_photo.jpg" alt="Boise Capitol aerial northwest" loading="lazy" tabindex="0" data-full="Media/Boise Capitol/Photos/dji_fly_20251204_151432_0009_1764890604891_photo.jpg">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-title">Boise Capitol </div>
+                                <div class="card-meta">Boise, ID • Aerial photo</div>
+                                <div class="card-actions">
+                                    <button class="btn" data-open-photo="Media/Boise Capitol/Photos/dji_fly_20251204_151432_0009_1764890604891_photo.jpg">View</button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="card" data-type="boise-capitol">
+                            <div class="card-media">
+                                <img src="Media/Boise Capitol/Photos/dji_fly_20251204_151536_0010_1764890604518_photo.jpg" alt="Boise Capitol aerial east" loading="lazy" tabindex="0" data-full="Media/Boise Capitol/Photos/dji_fly_20251204_151536_0010_1764890604518_photo.jpg">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-title">Boise Capitol</div>
+                                <div class="card-meta">Boise, ID • Aerial photo</div>
+                                <div class="card-actions">
+                                    <button class="btn" data-open-photo="Media/Boise Capitol/Photos/dji_fly_20251204_151536_0010_1764890604518_photo.jpg">View</button>
+                                </div>
+                            </div>
+                        </article>
+
+                    <!-- Table-Rock photos removed (none available) -->
                 </div>
             </div>
         </section>
 
         <!-- 3D Models Section -->
         <section id="models" class="tab-content">
-            <div class="content-header">
-                <h2>3D Models</h2>
-                <p>Explore high-resolution 3D reconstructions created from aerial photography</p>
-            </div>
-            <div class="models-grid">
-                <div class="model-item">
-                    <h3>Model 1</h3>
-                    <!-- Kiri Engine 3D Model Embed -->
-                    <iframe 
-                        title="Kiri 3D Model" 
-                        style="border: none;" 
-                        allowfullscreen 
-                        allow="autoplay; fullscreen; xr-spatial-tracking" 
-                        xr-spatial-tracking 
-                        execution-while-out-of-viewport 
-                        execution-while-not-rendered 
-                        web-share 
-                        width="100%" 
-                        height="480" 
-                        src="https://kiri-engine.com/share?gid=sample">
-                    </iframe>
-                    <p>Description of 3D model 1</p>
+            <div class="section">
+                <div class="section-hero">
+                    <div class="lead">
+                        <h2>3D Models</h2>
+                        <p class="lead">Explore high-resolution 3D reconstructions created from aerial photography. Click a model to open the interactive viewer.</p>
+                    </div>
+                    <div class="cta-group">
+                        <button class="btn">View All Models</button>
+                    </div>
                 </div>
-                <div class="model-item">
-                    <h3>Model 2</h3>
-                    <iframe 
-                        title="Kiri 3D Model" 
-                        style="border: none;" 
-                        allowfullscreen 
-                        allow="autoplay; fullscreen; xr-spatial-tracking" 
-                        xr-spatial-tracking 
-                        execution-while-out-of-viewport 
-                        execution-while-not-rendered 
-                        web-share 
-                        width="100%" 
-                        height="480" 
-                        src="https://kiri-engine.com/share?gid=sample">
-                    </iframe>
-                    <p>Description of 3D model 2</p>
-                </div>
-                <div class="model-item">
-                    <h3>Model 3</h3>
-                    <iframe 
-                        title="Kiri 3D Model" 
-                        style="border: none;" 
-                        allowfullscreen 
-                        allow="autoplay; fullscreen; xr-spatial-tracking" 
-                        xr-spatial-tracking 
-                        execution-while-out-of-viewport 
-                        execution-while-not-rendered 
-                        web-share 
-                        width="100%" 
-                        height="480" 
-                        src="https://kiri-engine.com/share?gid=sample">
-                    </iframe>
-                    <p>Description of 3D model 3</p>
+
+                <div class="cards-grid">
+                    <article class="card">
+                        <div class="card-media">
+                            <iframe title="Boise Capitol 3D Model" src="https://lumalabs.ai/embed/795a717a-b3d5-4139-a1b0-81a00bbae42e?mode=sparkles&background=%23ffffff&color=%23000000&showTitle=true&loadBg=true&logoPosition=bottom-left&infoPosition=bottom-right&cinematicVideo=undefined&showMenu=true" loading="lazy" aria-label="Boise Capitol 3D Model" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">Boise Capitol — Luma Scan</div>
+                            <div class="card-meta">High-detail reconstruction via Luma</div>
+                            <div class="card-actions">
+                                <button class="btn" aria-haspopup="dialog">Open Model</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-media">
+                            <iframe title="Boise Capitol Scan 2" src="https://www.kiriengine.app/share/3dgsEmbed/1996781668374937600?userId=1537123&type=0&bg_theme=dark&auto_spin=1" frameborder="0" allowfullscreen mozallowfullscreen webkitallowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking" execution-while-out-of-viewport execution-while-not-rendered style="max-width:100%;max-height:100%;min-width:100%;min-height:100%;border:0;" aria-label="Boise Capitol Scan 2"></iframe>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">Boise Capitol — Kiri Scan</div>
+                            <div class="card-meta">Photogrammetry via Kiri Engine</div>
+                            <div class="card-actions">
+                                <button class="btn" aria-haspopup="dialog">Open Model</button>
+                            </div>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>
 
         <!-- 360 Tours Section -->
         <section id="tours" class="tab-content">
-            <div class="content-header">
-                <h2>360° Virtual Tours</h2>
-                <p>Immersive panoramic experiences from the skies above Boise</p>
-            </div>
-            <div class="tours-grid">
-                <div class="tour-item">
-                    <h3>Boise State Tour</h3>
-                    <iframe width="100%" height="480" style="border: none;" 
-                            allow="autoplay; fullscreen; xr-spatial-tracking; gyroscope; accelerometer" 
-                            allowfullscreen webkitallowfullscreen mozallowfullscreen scrolling="no" 
-                            src="https://kuula.co/share/collection/7Hh8t?logo=1&info=1&fs=1&vr=0&thumbs=1">
-                    </iframe>
-                    <p>Complete 360° aerial tour showcasing the Boise State experience</p>
+            <div class="section">
+                <div class="section-hero">
+                    <div class="lead">
+                        <h2>360° Virtual Tours</h2>
+                        <p class="lead">Immersive panoramic experiences captured from the skies. Open any tour to enter a fully interactive 360° viewer.</p>
+                    </div>
+                    <div class="cta-group">
+                        <!-- Browse Tours removed -->
+                    </div>
                 </div>
-                <div class="tour-item">
-                    <h3>Downtown Boise</h3>
-                    <iframe width="100%" height="480" style="border: none;" 
-                            allow="autoplay; fullscreen; xr-spatial-tracking; gyroscope; accelerometer" 
-                            allowfullscreen webkitallowfullscreen mozallowfullscreen scrolling="no" 
-                            src="https://kuula.co/share/collection/7kJnF?logo=1&info=0&fs=1&vr=0&sd=1&thumbs=1">
-                    </iframe>
-                    <p>Aerial views of vibrant downtown Boise</p>
-                </div>
-                <div class="tour-item">
-                    <h3>Boise Foothills</h3>
-                    <iframe width="100%" height="480" style="border: none;" 
-                            allow="autoplay; fullscreen; xr-spatial-tracking; gyroscope; accelerometer" 
-                            allowfullscreen webkitallowfullscreen mozallowfullscreen scrolling="no" 
-                            src="https://kuula.co/share/collection/7kJnF?logo=1&info=0&fs=1&vr=0&sd=1&thumbs=1">
-                    </iframe>
-                    <p>Panoramic views of the beautiful Boise foothills</p>
+
+                <div class="cards-grid">
+                    <article class="card">
+                        <div class="card-media">
+                            <iframe title="Capitol Building" src="https://kuula.co/share/collection/7HbnG?logo=1&info=1&fs=1&autoplay=1" loading="lazy" aria-label="Capitol Building 360 tour" allow="autoplay; fullscreen; encrypted-media; gyroscope; accelerometer; xr-spatial-tracking" allowfullscreen></iframe>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">Capitol Building — 360° Tour</div>
+                            <div class="card-meta">Historic Capitol Building • Aerial panorama</div>
+                            <div class="card-actions"></div>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-media">
+                            <iframe title="Boise State Virtual Tour" src="https://kuula.co/share/collection/7Hh8t?logo=1&info=1&fs=1&autoplay=1" loading="lazy" aria-label="Boise State 360 tour" allow="autoplay; fullscreen; encrypted-media; gyroscope; accelerometer; xr-spatial-tracking" allowfullscreen></iframe>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">Boise State University — 360° Tour</div>
+                            <div class="card-meta">Campus aerial panorama</div>
+                            <div class="card-actions"></div>
+                        </div>
+                    </article>
+
+                    <!-- Removed placeholder tours (Downtown Boise, Boise Foothills) to reduce redundancy -->
                 </div>
             </div>
         </section>
 
         <!-- Videos Section -->
         <section id="videos" class="tab-content">
-            <div class="content-header">
-                <h2>Aerial Videos</h2>
-                <p>Cinematic aerial footage showcasing Boise's beauty</p>
+            <div class="section">
+                <div class="section-hero">
+                    <div class="lead">
+                        <h2>Aerial Videos</h2>
+                        <p class="lead">Cinematic aerial footage showcasing Idaho's beauty.</p>
+                    </div>
+                    <div class="cta-group">
+
+                    </div>
+                </div>
+
+                <div class="cards-grid">
+                    <article class="card">
+                        <div class="card-media">
+                            <div class="video-thumb" tabindex="0" role="button" aria-label="Play The Village video" data-play-src="Media/the-village/village-video.mp4" data-preview-src="Media/previews/village-video-preview.mp4" data-poster="data/images/the-village/thumb-Village-1.jpg">
+                                <img class="video-thumb__img" src="data/images/the-village/thumb-Village-1.jpg" alt="The Village video thumbnail" loading="lazy">
+                                <button class="thumb-play" aria-hidden="true">▶</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">The Village at Meridian, Julius M. Kleiner Memorial Park</div>
+                            <div class="card-meta">Aerial video • Meridian, ID</div>
+                            <div class="card-actions">
+                                <button class="btn" data-play-src="Media/the-village/village-video.mp4" data-poster="data/images/the-village/thumb-Village-1.jpg">Play</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-media">
+                            <div class="video-thumb" tabindex="0" role="button" aria-label="Play Table-Rock Flyover" data-play-src="Media/Table-Rock/Table-Rock-Flyover.mp4" data-preview-src="Media/previews/Table-Rock-Flyover-preview.mp4" data-poster="data/images/Table-Rock/thumb-poster-Table-Rock-Flyover-800.jpg">
+                                <img class="video-thumb__img" src="data/images/Table-Rock/thumb-poster-Table-Rock-Flyover-800.jpg" alt="Table-Rock Flyover thumbnail" loading="lazy">
+                                <button class="thumb-play" aria-hidden="true">▶</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">Table-Rock Flyover</div>
+                            <div class="card-meta">Smooth aerial flyover showcasing Table-Rock's plateau and surrounding foothills</div>
+                            <div class="card-actions">
+                                <button class="btn" data-play-src="Media/Table-Rock/Table-Rock-Flyover.mp4" data-poster="data/images/Table-Rock/thumb-poster-Table-Rock-Flyover-800.jpg">Play</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-media">
+                            <div class="video-thumb" tabindex="0" role="button" aria-label="Play CraneUp Table-Rock" data-play-src="Media/Table-Rock/CraneUp-Table-Rock.mp4" data-preview-src="Media/previews/CraneUp-Table-Rock-preview.mp4" data-poster="data/images/Table-Rock/thumb-poster-CraneUp-Table-Rock-800.jpg">
+                                <img class="video-thumb__img" src="data/images/Table-Rock/thumb-poster-CraneUp-Table-Rock-800.jpg" alt="CraneUp Table-Rock thumbnail" loading="lazy">
+                                <button class="thumb-play" aria-hidden="true">▶</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">CraneUp — Table-Rock</div>
+                            <div class="card-meta">Low-altitude crane perspective highlighting the vertical relief and rock faces</div>
+                            <div class="card-actions">
+                                <button class="btn" data-play-src="Media/Table-Rock/CraneUp-Table-Rock.mp4" data-poster="data/images/Table-Rock/thumb-poster-CraneUp-Table-Rock-800.jpg">Play</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="cards-grid" style="margin-top: 2rem;">
+                    <article class="card">
+                        <div class="card-media">
+                            <div class="video-thumb" tabindex="0" role="button" aria-label="Play Boise Capitol Video 1" data-play-src="Media/Boise%20Capitol/Videos/Capitol-1.mp4" data-preview-src="Media/previews/Capitol-1-preview.mp4" data-poster="Media/Boise%20Capitol/Photos/dji_fly_20251204_151358_0006_1764890606454_pano.jpg">
+                                <img class="video-thumb__img" src="Media/Boise%20Capitol/Photos/dji_fly_20251204_151358_0006_1764890606454_pano.jpg" alt="Boise Capitol video 1 thumbnail" loading="lazy">
+                                <button class="thumb-play" aria-hidden="true">▶</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">Boise Capitol — Flight 1</div>
+                            <div class="card-meta">Aerial pass over the Capitol dome</div>
+                            <div class="card-actions">
+                                <button class="btn" data-play-src="Media/Boise%20Capitol/Videos/Capitol-1.mp4" data-poster="Media/Boise%20Capitol/Photos/dji_fly_20251204_151358_0006_1764890606454_pano.jpg">Play</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-media">
+                            <div class="video-thumb" tabindex="0" role="button" aria-label="Play Boise Capitol Video 2" data-play-src="Media/Boise%20Capitol/Videos/Capitol-2.mp4" data-preview-src="Media/previews/Capitol-2-preview.mp4" data-poster="Media/Boise%20Capitol/Photos/dji_fly_20251204_151402_0007_1764890617273_photo.jpg">
+                                <img class="video-thumb__img" src="Media/Boise%20Capitol/Photos/dji_fly_20251204_151402_0007_1764890617273_photo.jpg" alt="Boise Capitol video 2 thumbnail" loading="lazy">
+                                <button class="thumb-play" aria-hidden="true">▶</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">Boise Capitol — Flight 2</div>
+                            <div class="card-meta">Orbit showcasing grounds and facade</div>
+                            <div class="card-actions">
+                                <button class="btn" data-play-src="Media/Boise%20Capitol/Videos/Capitol-2.mp4" data-poster="Media/Boise%20Capitol/Photos/dji_fly_20251204_151402_0007_1764890617273_photo.jpg">Play</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-media">
+                            <div class="video-thumb" tabindex="0" role="button" aria-label="Play Boise Capitol Video 3" data-play-src="Media/Boise%20Capitol/Videos/Capitol-3.mp4" data-preview-src="Media/previews/Capitol-3-preview.mp4" data-poster="Media/Boise%20Capitol/Photos/dji_fly_20251204_151432_0009_1764890604891_photo.jpg">
+                                <img class="video-thumb__img" src="Media/Boise%20Capitol/Photos/dji_fly_20251204_151432_0009_1764890604891_photo.jpg" alt="Boise Capitol video 3 thumbnail" loading="lazy">
+                                <button class="thumb-play" aria-hidden="true">▶</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">Boise Capitol — Flight 3</div>
+                            <div class="card-meta">Low sweep along the east approach</div>
+                            <div class="card-actions">
+                                <button class="btn" data-play-src="Media/Boise%20Capitol/Videos/Capitol-3.mp4" data-poster="Media/Boise%20Capitol/Photos/dji_fly_20251204_151432_0009_1764890604891_photo.jpg">Play</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
             </div>
-            <div class="videos-grid">
-                <div class="video-item">
-                    <h3>The Village at Meridian, Julius M. Kleiner Memorial Park</h3>
-                    <div class="video-wrapper">
-                        <iframe width="100%" height="100%" style="border: none;" 
-                                src="https://www.youtube.com/embed/ERdTZ5Tfw8U?rel=0" 
-                                title="The Village at Meridian, Julius M. Kleiner Memorial Park" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen>
-                        </iframe>
+        </section>
+        
+        <!-- About Section (enhanced) -->
+        <section id="about" class="tab-content" aria-labelledby="about-heading">
+            <div class="about-enhanced">
+                <aside class="about-profile" aria-label="Profile card">
+                    <picture>
+                            <source srcset="data/images/Me/webp-Jake-Bennett.webp" type="image/webp">
+                            <img src="data/images/Me/thumb-Jake-Bennett.jpg" alt="Jake Bennett portrait" class="avatar" loading="lazy">
+                        </picture>
+                    <h3>Jake Bennett</h3>
+                    <div class="about-contact">
+                        <a class="btn secondary" href="https://linkedin.com/in/jakebennett1" target="_blank" rel="noopener" aria-label="LinkedIn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M16 8a6 6 0 0 1 6 6v6h-4v-6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v6h-4v-12h4v2a4 4 0 0 1 4-2z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="9" width="4" height="11" rx="1" stroke="currentColor" stroke-width="1.2"/><circle cx="4" cy="5" r="1.5" stroke="currentColor" stroke-width="1.2"/></svg>
+                            LinkedIn
+                        </a>
+                        <a class="btn secondary" href="https://jebennett204.github.io/Portfolio/" target="_blank" rel="noopener" aria-label="Portfolio">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M14 3h7v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 14L21 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="7" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/></svg>
+                            Portfolio
+                        </a>
+                        <a class="btn secondary" href="https://coursera.org/user/51bbfac673ee6242a43621565996aab3" target="_blank" rel="noopener" aria-label="Coursera">
+                            Coursera
+                        </a>
+                        <a class="btn secondary" href="https://codecademy.com/profiles/JEBennett204" target="_blank" rel="noopener" aria-label="Codecademy">
+                            Codecademy
+                        </a>
                     </div>
-                    <p>Featured aerial walkthrough of The Village at Meridian and Julius M. Kleiner Memorial Park</p>
-                </div>
-                <div class="video-item">
-                    <h3>Sunrise Over Boise</h3>
-                    <div class="video-placeholder">
-                        <p>Embed your video here (YouTube, Vimeo, etc.)</p>
-                    </div>
-                    <p>Breathtaking sunrise aerial footage</p>
-                </div>
-                <div class="video-item">
-                    <h3>Boise River Adventure</h3>
-                    <div class="video-placeholder">
-                        <p>Embed your video here (YouTube, Vimeo, etc.)</p>
-                    </div>
-                    <p>Following the beautiful Boise River through the city</p>
-                </div>
-                <div class="video-item">
-                    <h3>Downtown at Night</h3>
-                    <div class="video-placeholder">
-                        <p>Embed your video here (YouTube, Vimeo, etc.)</p>
-                    </div>
-                    <p>The city lights come alive in this evening flight</p>
+                </aside>
+
+                    <div class="about-body" role="region" aria-labelledby="about-heading">
+                    <h2 id="about-heading">About</h2>
+                    <p class="lead">I’m Jake from Eagle, ID — a cybersecurity graduate and aerial imaging specialist. I blend software engineering, UAS operations, and photogrammetry to deliver production-ready imagery, 3D reconstructions, and web experiences.</p>
+
+                    <p>I hold a bachelor’s degree in Cybersecurity from Boise State University with minors in Japanese Studies and Military Science. My toolkit includes Python, JavaScript, HTML/CSS, and automation for data processing and deployment. I enjoy bridging security-minded engineering with creative aerial applications.</p>
                 </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Boise Aerial Photography. All rights reserved.</p>
+    <footer role="contentinfo">
+        <p>2025 Jake Bennett. All rights reserved.</p>
     </footer>
+
+    <!-- Media modal (accessible) used for videos and images) -->
+    <div id="video-modal" class="video-modal" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="video-modal__backdrop" data-close></div>
+        <div class="video-modal__dialog" role="document">
+            <button class="video-modal__close" aria-label="Close media">×</button>
+            <button class="video-modal__prev" aria-label="Previous">‹</button>
+            <button class="video-modal__next" aria-label="Next">›</button>
+            <div class="video-modal__content" tabindex="0"></div>
+            <aside class="video-modal__meta" aria-hidden="true">
+                <h4 class="meta-title">Details</h4>
+                <div class="meta-list"></div>
+            </aside>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
