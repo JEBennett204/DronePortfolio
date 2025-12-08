@@ -10,6 +10,8 @@ Media/the-village/village-video.mp4
 
 # Allow lightweight previews to be tracked
 !Media/previews/*.mp4
+!Media/optimized/*.mp4
+!Media/optimized/*.webm
 
 # Keep images and thumbnails tracked
 !*.jpg
