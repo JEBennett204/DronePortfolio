@@ -44,7 +44,7 @@
     <main id="main" role="main">
         <section id="home" class="tab-content active">
             <div class="hero-section">
-                <div class="hero-360" aria-label="Hero 360 panorama">
+                <div class="hero-360 embed-wrap" aria-label="Hero 360 panorama">
                         <!-- Kuula 360 Photo Embed (main hero) -->
                         <iframe
                             title="Boise 360° Panorama"
@@ -283,8 +283,11 @@
 
                 <div class="cards-grid">
                     <article class="card">
-                        <div class="card-media">
+                        <div class="card-media embed-wrap">
                             <iframe title="Capitol Building" src="https://kuula.co/share/collection/7HbnG?logo=1&info=1&fs=1&autoplay=1" loading="lazy" aria-label="Capitol Building 360 tour" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                            <div class="embed-guard" data-embed-guard aria-hidden="true">
+                                <button class="btn secondary embed-guard__btn" type="button">Tap to interact</button>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="card-title">Capitol Building — 360° Tour</div>
@@ -294,8 +297,11 @@
                     </article>
 
                     <article class="card">
-                        <div class="card-media">
+                        <div class="card-media embed-wrap">
                             <iframe title="Boise State Virtual Tour" src="https://kuula.co/share/collection/7Hh8t?logo=1&info=1&fs=1&autoplay=1" loading="lazy" aria-label="Boise State 360 tour" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                            <div class="embed-guard" data-embed-guard aria-hidden="true">
+                                <button class="btn secondary embed-guard__btn" type="button">Tap to interact</button>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="card-title">Boise State University — 360° Tour</div>

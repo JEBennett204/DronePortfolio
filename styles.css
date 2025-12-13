@@ -261,10 +261,10 @@ main {
 }
 
 @media (hover: none) and (pointer: coarse) {
-    .hero-360 iframe { pointer-events: none; touch-action: pan-y; }
-    .hero-360 .embed-guard { display: flex; }
-    .hero-360.is-interactive iframe { pointer-events: auto; }
-    .hero-360.is-interactive .embed-guard { display: none; }
+    .embed-wrap iframe { pointer-events: none; touch-action: pan-y; }
+    .embed-wrap .embed-guard { display: flex; }
+    .embed-wrap.is-interactive iframe { pointer-events: auto; }
+    .embed-wrap.is-interactive .embed-guard { display: none; }
 }
 
 .hero-text {

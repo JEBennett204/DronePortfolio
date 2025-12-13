@@ -134,18 +134,20 @@ document.addEventListener('DOMContentLoaded', function() {
         iframe.style.opacity = '0.5';
     });
 
-    // Mobile: prevent the hero 360 embed from trapping scroll; tap to enable interaction
+    // Mobile: prevent embeds from trapping scroll; tap to enable interaction
     try {
-        const hero360 = document.querySelector('.hero-360');
-        const guard = hero360 ? hero360.querySelector('[data-embed-guard]') : null;
-        const guardBtn = guard ? guard.querySelector('button') : null;
         const isCoarsePointer = window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-        if (hero360 && guard && guardBtn && isCoarsePointer) {
-            // Show guard to screen readers only on mobile (otherwise it's hidden)
-            guard.setAttribute('aria-hidden', 'false');
-            guardBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                hero360.classList.add('is-interactive');
+        if (isCoarsePointer) {
+            document.querySelectorAll('.embed-wrap [data-embed-guard]').forEach((guard) => {
+                const guardBtn = guard.querySelector('button');
+                if (!guardBtn) return;
+                // Expose the control to assistive tech on mobile only
+                guard.setAttribute('aria-hidden', 'false');
+                guardBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const wrap = guard.closest('.embed-wrap');
+                    if (wrap) wrap.classList.add('is-interactive');
+                });
             });
         }
     } catch (_) {}
