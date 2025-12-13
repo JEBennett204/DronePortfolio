@@ -134,6 +134,22 @@ document.addEventListener('DOMContentLoaded', function() {
         iframe.style.opacity = '0.5';
     });
 
+    // Mobile: prevent the hero 360 embed from trapping scroll; tap to enable interaction
+    try {
+        const hero360 = document.querySelector('.hero-360');
+        const guard = hero360 ? hero360.querySelector('[data-embed-guard]') : null;
+        const guardBtn = guard ? guard.querySelector('button') : null;
+        const isCoarsePointer = window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+        if (hero360 && guard && guardBtn && isCoarsePointer) {
+            // Show guard to screen readers only on mobile (otherwise it's hidden)
+            guard.setAttribute('aria-hidden', 'false');
+            guardBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                hero360.classList.add('is-interactive');
+            });
+        }
+    } catch (_) {}
+
     // --- Lazy-load YouTube thumbnails and modal player ---
     const youtubePlaceholders = document.querySelectorAll('.youtube-lazy');
     const modal = document.getElementById('video-modal');

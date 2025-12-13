@@ -242,6 +242,31 @@ main {
     height: 100%;
 }
 
+/* Mobile UX: prevent embeds from trapping scroll; tap to enable interaction */
+.embed-guard {
+    position: absolute;
+    inset: 0;
+    z-index: 8;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 1rem;
+    background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(var(--dark-khaki-rgb),0.22));
+    pointer-events: auto;
+    touch-action: pan-y;
+}
+
+.embed-guard__btn {
+    pointer-events: auto;
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .hero-360 iframe { pointer-events: none; touch-action: pan-y; }
+    .hero-360 .embed-guard { display: flex; }
+    .hero-360.is-interactive iframe { pointer-events: auto; }
+    .hero-360.is-interactive .embed-guard { display: none; }
+}
+
 .hero-text {
     position: absolute;
     /* move higher so overlay/UI controls don't overlap the text */
