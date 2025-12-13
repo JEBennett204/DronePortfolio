@@ -1,3 +1,12 @@
+const DEBUG = (() => {
+    try { return new URLSearchParams(window.location.search).has('debug'); } catch (_) { return false; }
+})();
+
+function debugLog(...args) {
+    if (!DEBUG) return;
+    try { console.log(...args); } catch (_) {}
+}
+
 // Tab Navigation
 document.addEventListener('DOMContentLoaded', function() {
     // Mark that JS is active for CSS progressive enhancement
@@ -128,11 +137,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Lazy-load YouTube thumbnails and modal player ---
     const youtubePlaceholders = document.querySelectorAll('.youtube-lazy');
     const modal = document.getElementById('video-modal');
-    const modalContent = modal.querySelector('.video-modal__content');
-    const modalClose = modal.querySelector('.video-modal__close');
+    const modalContent = modal ? modal.querySelector('.video-modal__content') : null;
+    const modalClose = modal ? modal.querySelector('.video-modal__close') : null;
     lastFocusedElement = null;
 
     function openModalWithVideo(id, title) {
+        if (!modal || !modalContent || !modalClose) return;
         lastFocusedElement = document.activeElement;
         modal.setAttribute('aria-hidden', 'false');
         const src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
@@ -155,6 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Open image by gallery index (preferred) or by src
     function openModalWithImageByIndex(index) {
+        if (!modal || !modalContent) return;
         if (index < 0 || index >= galleryItems.length) return;
         currentIndex = index;
         const item = galleryItems[index];
@@ -203,11 +214,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // focus the close button for keyboard users
-        modal.querySelector('.video-modal__close').focus();
+        modal.querySelector('.video-modal__close')?.focus();
         enableModalFocusTrap(modal);
     }
 
     function openModalWithImage(src, alt) {
+        if (!modal || !modalContent) return;
         // If galleryItems available, try to find index
         const idx = galleryItems.findIndex(i => (i.file === src) || (i.thumb === src) || (i.webp === src));
         if (idx >= 0) return openModalWithImageByIndex(idx);
@@ -226,10 +238,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const meta = modal.querySelector('.video-modal__meta'); if (meta) meta.setAttribute('aria-hidden', 'true');
         modal.querySelector('.video-modal__dialog')?.classList.remove('with-meta');
         currentIndex = -1;
-        modal.querySelector('.video-modal__close').focus();
+        modal.querySelector('.video-modal__close')?.focus();
         enableModalFocusTrap(modal);
     }
     function closeModal() {
+        if (!modal || !modalContent) return;
         modal.setAttribute('aria-hidden', 'true');
         modalContent.innerHTML = '';
         // disable focus trap
@@ -252,7 +265,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Wire play buttons (and thumbnail containers) to open modal and/or play
-    document.querySelectorAll('[data-play-src]').forEach(btn => {
+    // Note: .video-thumb has its own click/keydown handlers (avoid double-binding)
+    document.querySelectorAll('[data-play-src]:not(.video-thumb)').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.stopPropagation();
             const src = this.getAttribute('data-play-src');
@@ -372,6 +386,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function openModalWithLocalVideo(src, title, poster = null, autoplay = false) {
+        if (!modal || !modalContent) return;
         lastFocusedElement = document.activeElement;
         modal.setAttribute('aria-hidden', 'false');
         modalContent.innerHTML = '';
@@ -536,39 +551,45 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     loadGalleryJson();
 
-    modal.addEventListener('click', function(e) {
-        if (e.target.matches('[data-close], .video-modal__backdrop')) closeModal();
-    });
-    modalClose.addEventListener('click', closeModal);
-    const modalPrev = modal.querySelector('.video-modal__prev');
-    const modalNext = modal.querySelector('.video-modal__next');
-    if (modalPrev) modalPrev.addEventListener('click', function(e) { e.stopPropagation(); if (currentIndex > 0) openModalWithImageByIndex(currentIndex - 1); else openModalWithImageByIndex(galleryItems.length - 1); });
-    if (modalNext) modalNext.addEventListener('click', function(e) { e.stopPropagation(); if (currentIndex < galleryItems.length - 1) openModalWithImageByIndex(currentIndex + 1); else openModalWithImageByIndex(0); });
-    window.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeModal();
-        if (modal.getAttribute('aria-hidden') === 'false') {
-            if (e.key === 'ArrowLeft') {
-                if (currentIndex > 0) openModalWithImageByIndex(currentIndex - 1);
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target.matches('[data-close], .video-modal__backdrop')) closeModal();
+        });
+        if (modalClose) modalClose.addEventListener('click', closeModal);
+
+        const modalPrev = modal.querySelector('.video-modal__prev');
+        const modalNext = modal.querySelector('.video-modal__next');
+        if (modalPrev) modalPrev.addEventListener('click', function(e) { e.stopPropagation(); if (currentIndex > 0) openModalWithImageByIndex(currentIndex - 1); else openModalWithImageByIndex(galleryItems.length - 1); });
+        if (modalNext) modalNext.addEventListener('click', function(e) { e.stopPropagation(); if (currentIndex < galleryItems.length - 1) openModalWithImageByIndex(currentIndex + 1); else openModalWithImageByIndex(0); });
+
+        window.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeModal();
+            if (modal.getAttribute('aria-hidden') === 'false') {
+                if (e.key === 'ArrowLeft') {
+                    if (currentIndex > 0) openModalWithImageByIndex(currentIndex - 1);
+                }
+                if (e.key === 'ArrowRight') {
+                    if (currentIndex < galleryItems.length - 1) openModalWithImageByIndex(currentIndex + 1);
+                }
             }
-            if (e.key === 'ArrowRight') {
-                if (currentIndex < galleryItems.length - 1) openModalWithImageByIndex(currentIndex + 1);
-            }
-        }
-    });
+        });
+    }
 
     // Basic touch swipe support for modal (left/right)
     let touchStartX = 0;
-    modal.addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
-    modal.addEventListener('touchend', function(e) {
-        const dx = e.changedTouches[0].screenX - touchStartX;
-        if (Math.abs(dx) > 50 && galleryItems.length > 0 && modal.getAttribute('aria-hidden') === 'false') {
-            if (dx > 0) { // swipe right
-                if (currentIndex > 0) openModalWithImageByIndex(currentIndex - 1);
-            } else { // swipe left
-                if (currentIndex < galleryItems.length - 1) openModalWithImageByIndex(currentIndex + 1);
+    if (modal) {
+        modal.addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+        modal.addEventListener('touchend', function(e) {
+            const dx = e.changedTouches[0].screenX - touchStartX;
+            if (Math.abs(dx) > 50 && galleryItems.length > 0 && modal.getAttribute('aria-hidden') === 'false') {
+                if (dx > 0) { // swipe right
+                    if (currentIndex > 0) openModalWithImageByIndex(currentIndex - 1);
+                } else { // swipe left
+                    if (currentIndex < galleryItems.length - 1) openModalWithImageByIndex(currentIndex + 1);
+                }
             }
-        }
-    }, {passive: true});
+        }, {passive: true});
+    }
 
     // Intersection Observer for scroll animations
     const observerOptions = {
@@ -595,13 +616,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Add click tracking for analytics (optional) on cards
-    document.querySelectorAll('.card, .featured-item').forEach(item => {
-        item.addEventListener('click', function() {
-            const itemName = this.querySelector('.card-title, h3, figcaption')?.textContent || 'Unknown';
-            console.log(`User clicked on: ${itemName}`);
-            // You can add analytics tracking here
+    if (DEBUG) {
+        document.querySelectorAll('.card, .featured-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const itemName = this.querySelector('.card-title, h3, figcaption')?.textContent || 'Unknown';
+                debugLog(`User clicked on: ${itemName}`);
+                // You can add analytics tracking here
+            });
         });
-    });
+    }
 
     // Make featured video card activate the Videos tab when clicked (any youtube-lazy inside)
     document.querySelectorAll('.featured-item').forEach(item => {
@@ -634,8 +657,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 const id = entry.target.id;
                 const link = document.querySelector(`.nav-link[data-tab="${id}"]`);
                 if (link) {
-                    navLinks.forEach(l => l.classList.remove('active'));
+                    navLinks.forEach(l => { l.classList.remove('active'); l.removeAttribute('aria-current'); });
                     link.classList.add('active');
+                    link.setAttribute('aria-current', 'page');
                 }
             }
         });
@@ -648,13 +672,13 @@ let resizeTimer;
 window.addEventListener('resize', function() {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function() {
-        console.log('Window resized');
+        debugLog('Window resized');
         // Add any resize-specific logic here
     }, 250);
 });
 
 // Preload images and iframes for better performance
 window.addEventListener('load', function() {
-    console.log('Page fully loaded');
+    debugLog('Page fully loaded');
     // Add any post-load logic here
 });

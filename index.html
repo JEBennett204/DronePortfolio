@@ -4,10 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boise Drone Portfolio</title>
-    <!-- Performance: preconnect to video/image providers -->
-    <link rel="preconnect" href="https://www.youtube.com">
-    <link rel="preconnect" href="https://i.ytimg.com">
-    <link rel="preconnect" href="https://static.kuula.io">
+    <meta name="description" content="Aerial photography, videography, 3D models, and 360° tours around Boise, Idaho by Jake Bennett.">
+    <meta name="author" content="Jake Bennett">
+    <meta name="robots" content="index, follow">
+
+    <!-- Social sharing (Open Graph / Twitter) -->
+    <meta property="og:title" content="Boise Drone Portfolio">
+    <meta property="og:description" content="Aerial photography, videography, 3D models, and 360° tours around Boise, Idaho by Jake Bennett.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="data/images/the-village/thumb-Village-1-800.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Boise Drone Portfolio">
+    <meta name="twitter:description" content="Aerial photography, videography, 3D models, and 360° tours around Boise, Idaho by Jake Bennett.">
+    <meta name="twitter:image" content="data/images/the-village/thumb-Village-1-800.jpg">
+    <!-- Performance: preconnect to embed providers -->
+    <link rel="preconnect" href="https://kuula.co" crossorigin>
+    <link rel="preconnect" href="https://static.kuula.io" crossorigin>
+    <link rel="preconnect" href="https://lumalabs.ai" crossorigin>
+    <link rel="preconnect" href="https://www.kiriengine.app" crossorigin>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -82,9 +96,9 @@
 
                     <div class="featured-item">
                         <div class="featured-image video-embed">
-                            <div class="video-thumb" tabindex="0" role="button" aria-label="Play The Village video" data-play-src="Media/previews/village-video-preview.mp4" data-preview-src="Media/previews/village-video-preview.mp4" data-poster="data/images/the-village/thumb-Village-1-800.jpg">
+                            <div class="video-thumb" tabindex="0" role="button" aria-label="Play The Village video" data-play-src="Media/optimized/village-video-web.mp4" data-preview-src="Media/previews/village-video-preview.mp4" data-poster="data/images/the-village/thumb-Village-1-800.jpg">
                                 <img class="video-thumb__img" src="data/images/the-village/thumb-Village-1-800.jpg" alt="The Village video thumbnail" loading="lazy">
-                                <button class="thumb-play" aria-hidden="true">▶</button>
+                                <button class="thumb-play" type="button" aria-hidden="true" tabindex="-1">▶</button>
                             </div>
                         </div>
                         <h3>The Village at Meridian, Julius M. Kleiner Memorial Park</h3>
@@ -103,8 +117,8 @@
                         <p class="lead">Organized aerial photos by location and subject. Click to enlarge for full resolution.</p>
                     </div>
                     <div class="cta-group">
-                        <button class="btn" id="photos-filter-all">All</button>
-                        <button class="btn secondary" id="photos-filter-village">The Village</button>
+                        <button class="btn" id="photos-filter-all" type="button">All</button>
+                        <button class="btn secondary" id="photos-filter-village" type="button">The Village</button>
                     </div>
                 </div>
 
@@ -119,7 +133,7 @@
                             <div class="card-title">The Village — Pond View</div>
                             <div class="card-meta">Meridian, ID • Aerial photo</div>
                             <div class="card-actions">
-                                <button class="btn" data-open-photo="Media/the-village/Village 1.jpg">View</button>
+                                <button class="btn" type="button" data-open-photo="Media/the-village/Village 1.jpg">View</button>
                             </div>
                         </div>
                     </article>
@@ -132,7 +146,7 @@
                             <div class="card-title">The Village — Overhead</div>
                             <div class="card-meta">Meridian, ID • Aerial photo</div>
                             <div class="card-actions">
-                                <button class="btn" data-open-photo="Media/the-village/Village 2.jpg">View</button>
+                                <button class="btn" type="button" data-open-photo="Media/the-village/Village 2.jpg">View</button>
                             </div>
                         </div>
                     </article>
@@ -145,7 +159,7 @@
                                 <div class="card-title">Boise Capitol — Panorama</div>
                                 <div class="card-meta">Boise, ID • Aerial panorama</div>
                                 <div class="card-actions">
-                                    <button class="btn" data-open-photo="Media/Boise%20Capitol/Photos/dji_fly_20251204_151358_0006_1764890606454_pano.jpg">View</button>
+                                    <button class="btn" type="button" data-open-photo="Media/Boise%20Capitol/Photos/dji_fly_20251204_151358_0006_1764890606454_pano.jpg">View</button>
                                 </div>
                             </div>
                         </article>
@@ -158,7 +172,7 @@
                                 <div class="card-title">Boise Capitol</div>
                                 <div class="card-meta">Boise, ID • Aerial photo</div>
                                 <div class="card-actions">
-                                    <button class="btn" data-open-photo="Media/Boise Capitol/Photos/dji_fly_20251204_151402_0007_1764890617273_photo.jpg">View</button>
+                                    <button class="btn" type="button" data-open-photo="Media/Boise Capitol/Photos/dji_fly_20251204_151402_0007_1764890617273_photo.jpg">View</button>
                                 </div>
                             </div>
                         </article>
@@ -171,7 +185,7 @@
                                 <div class="card-title">Boise Capitol</div>
                                 <div class="card-meta">Boise, ID • Aerial photo</div>
                                 <div class="card-actions">
-                                    <button class="btn" data-open-photo="Media/Boise Capitol/Photos/dji_fly_20251204_151426_0008_1764890605254_photo.jpg">View</button>
+                                    <button class="btn" type="button" data-open-photo="Media/Boise Capitol/Photos/dji_fly_20251204_151426_0008_1764890605254_photo.jpg">View</button>
                                 </div>
                             </div>
                         </article>
@@ -184,7 +198,7 @@
                                 <div class="card-title">Boise Capitol </div>
                                 <div class="card-meta">Boise, ID • Aerial photo</div>
                                 <div class="card-actions">
-                                    <button class="btn" data-open-photo="Media/Boise Capitol/Photos/dji_fly_20251204_151432_0009_1764890604891_photo.jpg">View</button>
+                                    <button class="btn" type="button" data-open-photo="Media/Boise Capitol/Photos/dji_fly_20251204_151432_0009_1764890604891_photo.jpg">View</button>
                                 </div>
                             </div>
                         </article>
@@ -197,7 +211,7 @@
                                 <div class="card-title">Boise Capitol</div>
                                 <div class="card-meta">Boise, ID • Aerial photo</div>
                                 <div class="card-actions">
-                                    <button class="btn" data-open-photo="Media/Boise Capitol/Photos/dji_fly_20251204_151536_0010_1764890604518_photo.jpg">View</button>
+                                    <button class="btn" type="button" data-open-photo="Media/Boise Capitol/Photos/dji_fly_20251204_151536_0010_1764890604518_photo.jpg">View</button>
                                 </div>
                             </div>
                         </article>
@@ -216,7 +230,7 @@
                         <p class="lead">Explore high-resolution 3D reconstructions created from aerial photography. Click a model to open the interactive viewer.</p>
                     </div>
                     <div class="cta-group">
-                        <button class="btn">View All Models</button>
+                        <button class="btn" type="button">View All Models</button>
                     </div>
                 </div>
 
@@ -226,23 +240,23 @@
                             <iframe title="Boise Capitol 3D Model" src="https://lumalabs.ai/embed/795a717a-b3d5-4139-a1b0-81a00bbae42e?mode=sparkles&background=%23ffffff&color=%23000000&showTitle=true&loadBg=true&logoPosition=bottom-left&infoPosition=bottom-right&cinematicVideo=undefined&showMenu=true" loading="lazy" aria-label="Boise Capitol 3D Model" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
                         </div>
                         <div class="card-body">
-                            <div class="card-title">Boise Capitol — Luma Scan</div>
+                            <div class="card-title">Boise Capitol Model</div>
                             <div class="card-meta">High-detail reconstruction via Luma</div>
                             <div class="card-actions">
-                                <a class="btn" href="https://lumalabs.ai/embed/795a717a-b3d5-4139-a1b0-81a00bbae42e?mode=sparkles&background=%23ffffff&color=%23000000&showTitle=true&loadBg=true&logoPosition=bottom-left&infoPosition=bottom-right&cinematicVideo=undefined&showMenu=true" target="_blank" rel="noopener" aria-label="Open Boise Capitol Luma model">Open Model</a>
+                                <a class="btn" href="https://lumalabs.ai/embed/795a717a-b3d5-4139-a1b0-81a00bbae42e?mode=sparkles&background=%23ffffff&color=%23000000&showTitle=true&loadBg=true&logoPosition=bottom-left&infoPosition=bottom-right&cinematicVideo=undefined&showMenu=true" target="_blank" rel="noopener noreferrer" aria-label="Open Boise Capitol Luma model">Open Model</a>
                             </div>
                         </div>
                     </article>
 
                     <article class="card">
                         <div class="card-media">
-                            <iframe title="Boise Capitol Scan 2" src="https://www.kiriengine.app/share/3dgsEmbed/1996781668374937600?userId=1537123&type=0&bg_theme=bright&auto_spin=1" frameborder="0" allowfullscreen mozallowfullscreen webkitallowfullscreen allow="autoplay; fullscreen;" execution-while-out-of-viewport execution-while-not-rendered style="max-width:100%;max-height:100%;min-width:100%;min-height:100%;" aria-label="Boise Capitol Scan 2"></iframe>
+                            <iframe title="Boise Capitol Scan 2" src="https://www.kiriengine.app/share/3dgsEmbed/1996781668374937600?userId=1537123&type=0&bg_theme=bright&auto_spin=1" frameborder="0" allowfullscreen mozallowfullscreen webkitallowfullscreen allow="autoplay; fullscreen;" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" execution-while-out-of-viewport execution-while-not-rendered style="max-width:100%;max-height:100%;min-width:100%;min-height:100%;" aria-label="Boise Capitol Scan 2"></iframe>
                         </div>
                         <div class="card-body">
-                            <div class="card-title">Boise Capitol — Kiri Scan</div>
-                            <div class="card-meta">Photogrammetry via Kiri Engine</div>
+                            <div class="card-title">Boise Capitol Animation</div>
+                            <div class="card-meta">3DGS animation via Kiri Engine</div>
                             <div class="card-actions">
-                                <a class="btn" href="https://www.kiriengine.app/share/3dgsEmbed/1996781668374937600?userId=1537123&type=0&bg_theme=bright&auto_spin=1" target="_blank" rel="noopener" aria-label="Open Boise Capitol Kiri model">Open Model</a>
+                                <a class="btn" href="https://www.kiriengine.app/share/3dgsEmbed/1996781668374937600?userId=1537123&type=0&bg_theme=bright&auto_spin=1" target="_blank" rel="noopener noreferrer" aria-label="Open Boise Capitol Kiri model">Open Model</a>
                             </div>
                         </div>
                     </article>
@@ -309,14 +323,14 @@
                         <div class="card-media">
                             <div class="video-thumb" tabindex="0" role="button" aria-label="Play The Village video" data-play-src="Media/optimized/village-video-web.mp4" data-preview-src="Media/previews/village-video-preview.mp4" data-poster="data/images/the-village/thumb-Village-1.jpg">
                                 <img class="video-thumb__img" src="data/images/the-village/thumb-Village-1.jpg" alt="The Village video thumbnail" loading="lazy">
-                                <button class="thumb-play" aria-hidden="true">▶</button>
+                                <button class="thumb-play" type="button" aria-hidden="true" tabindex="-1">▶</button>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="card-title">The Village at Meridian, Julius M. Kleiner Memorial Park</div>
                             <div class="card-meta">Aerial video • Meridian, ID</div>
                             <div class="card-actions">
-                                <button class="btn" data-play-src="Media/optimized/village-video-web.mp4" data-poster="data/images/the-village/thumb-Village-1.jpg">Play</button>
+                                <button class="btn" type="button" data-play-src="Media/optimized/village-video-web.mp4" data-poster="data/images/the-village/thumb-Village-1.jpg">Play</button>
                             </div>
                         </div>
                     </article>
@@ -325,14 +339,14 @@
                         <div class="card-media">
                             <div class="video-thumb" tabindex="0" role="button" aria-label="Play Table-Rock Flyover" data-play-src="Media/optimized/Table-Rock-Flyover-web.mp4" data-preview-src="Media/previews/Table-Rock-Flyover-preview.mp4" data-poster="data/images/Table-Rock/thumb-poster-Table-Rock-Flyover-800.jpg">
                                 <img class="video-thumb__img" src="data/images/Table-Rock/thumb-poster-Table-Rock-Flyover-800.jpg" alt="Table-Rock Flyover thumbnail" loading="lazy">
-                                <button class="thumb-play" aria-hidden="true">▶</button>
+                                <button class="thumb-play" type="button" aria-hidden="true" tabindex="-1">▶</button>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="card-title">Table-Rock Flyover</div>
                             <div class="card-meta">Smooth aerial flyover showcasing Table-Rock's plateau and surrounding foothills</div>
                             <div class="card-actions">
-                                <button class="btn" data-play-src="Media/optimized/Table-Rock-Flyover-web.mp4" data-poster="data/images/Table-Rock/thumb-poster-Table-Rock-Flyover-800.jpg">Play</button>
+                                <button class="btn" type="button" data-play-src="Media/optimized/Table-Rock-Flyover-web.mp4" data-poster="data/images/Table-Rock/thumb-poster-Table-Rock-Flyover-800.jpg">Play</button>
                             </div>
                         </div>
                     </article>
@@ -341,14 +355,14 @@
                         <div class="card-media">
                             <div class="video-thumb" tabindex="0" role="button" aria-label="Play CraneUp Table-Rock" data-play-src="Media/optimized/CraneUp-Table-Rock-web.mp4" data-preview-src="Media/previews/CraneUp-Table-Rock-preview.mp4" data-poster="data/images/Table-Rock/thumb-poster-CraneUp-Table-Rock-800.jpg">
                                 <img class="video-thumb__img" src="data/images/Table-Rock/thumb-poster-CraneUp-Table-Rock-800.jpg" alt="CraneUp Table-Rock thumbnail" loading="lazy">
-                                <button class="thumb-play" aria-hidden="true">▶</button>
+                                <button class="thumb-play" type="button" aria-hidden="true" tabindex="-1">▶</button>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="card-title">CraneUp — Table-Rock</div>
                             <div class="card-meta">Low-altitude crane perspective highlighting the vertical relief and rock faces</div>
                             <div class="card-actions">
-                                <button class="btn" data-play-src="Media/optimized/CraneUp-Table-Rock-web.mp4" data-poster="data/images/Table-Rock/thumb-poster-CraneUp-Table-Rock-800.jpg">Play</button>
+                                <button class="btn" type="button" data-play-src="Media/optimized/CraneUp-Table-Rock-web.mp4" data-poster="data/images/Table-Rock/thumb-poster-CraneUp-Table-Rock-800.jpg">Play</button>
                             </div>
                         </div>
                     </article>
@@ -359,14 +373,14 @@
                         <div class="card-media">
                             <div class="video-thumb" tabindex="0" role="button" aria-label="Play Boise Capitol Video 1" data-play-src="Media/optimized/Capitol-1-web.mp4" data-preview-src="Media/previews/Capitol-1-preview.mp4" data-poster="Media/Boise%20Capitol/Photos/dji_fly_20251204_151358_0006_1764890606454_pano.jpg">
                                 <img class="video-thumb__img" src="Media/Boise%20Capitol/Photos/dji_fly_20251204_151358_0006_1764890606454_pano.jpg" alt="Boise Capitol video 1 thumbnail" loading="lazy">
-                                <button class="thumb-play" aria-hidden="true">▶</button>
+                                <button class="thumb-play" type="button" aria-hidden="true" tabindex="-1">▶</button>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="card-title">Boise Capitol — Flight 1</div>
                             <div class="card-meta">Aerial pass over the Capitol dome</div>
                             <div class="card-actions">
-                                <button class="btn" data-play-src="Media/optimized/Capitol-1-web.mp4" data-poster="Media/Boise%20Capitol/Photos/dji_fly_20251204_151358_0006_1764890606454_pano.jpg">Play</button>
+                                <button class="btn" type="button" data-play-src="Media/optimized/Capitol-1-web.mp4" data-poster="Media/Boise%20Capitol/Photos/dji_fly_20251204_151358_0006_1764890606454_pano.jpg">Play</button>
                             </div>
                         </div>
                     </article>
@@ -375,14 +389,14 @@
                         <div class="card-media">
                             <div class="video-thumb" tabindex="0" role="button" aria-label="Play Boise Capitol Video 2" data-play-src="Media/optimized/Capitol-2-web.mp4" data-preview-src="Media/previews/Capitol-2-preview.mp4" data-poster="Media/Boise%20Capitol/Photos/dji_fly_20251204_151402_0007_1764890617273_photo.jpg">
                                 <img class="video-thumb__img" src="Media/Boise%20Capitol/Photos/dji_fly_20251204_151402_0007_1764890617273_photo.jpg" alt="Boise Capitol video 2 thumbnail" loading="lazy">
-                                <button class="thumb-play" aria-hidden="true">▶</button>
+                                <button class="thumb-play" type="button" aria-hidden="true" tabindex="-1">▶</button>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="card-title">Boise Capitol — Flight 2</div>
                             <div class="card-meta">Orbit showcasing grounds and facade</div>
                             <div class="card-actions">
-                                <button class="btn" data-play-src="Media/optimized/Capitol-2-web.mp4" data-poster="Media/Boise%20Capitol/Photos/dji_fly_20251204_151402_0007_1764890617273_photo.jpg">Play</button>
+                                <button class="btn" type="button" data-play-src="Media/optimized/Capitol-2-web.mp4" data-poster="Media/Boise%20Capitol/Photos/dji_fly_20251204_151402_0007_1764890617273_photo.jpg">Play</button>
                             </div>
                         </div>
                     </article>
@@ -391,14 +405,14 @@
                         <div class="card-media">
                             <div class="video-thumb" tabindex="0" role="button" aria-label="Play Boise Capitol Video 3" data-play-src="Media/optimized/Capitol-3-web.mp4" data-preview-src="Media/previews/Capitol-3-preview.mp4" data-poster="Media/Boise%20Capitol/Photos/dji_fly_20251204_151432_0009_1764890604891_photo.jpg">
                                 <img class="video-thumb__img" src="Media/Boise%20Capitol/Photos/dji_fly_20251204_151432_0009_1764890604891_photo.jpg" alt="Boise Capitol video 3 thumbnail" loading="lazy">
-                                <button class="thumb-play" aria-hidden="true">▶</button>
+                                <button class="thumb-play" type="button" aria-hidden="true" tabindex="-1">▶</button>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="card-title">Boise Capitol — Flight 3</div>
                             <div class="card-meta">Low sweep along the east approach</div>
                             <div class="card-actions">
-                                <button class="btn" data-play-src="Media/optimized/Capitol-3-web.mp4" data-poster="Media/Boise%20Capitol/Photos/dji_fly_20251204_151432_0009_1764890604891_photo.jpg">Play</button>
+                                <button class="btn" type="button" data-play-src="Media/optimized/Capitol-3-web.mp4" data-poster="Media/Boise%20Capitol/Photos/dji_fly_20251204_151432_0009_1764890604891_photo.jpg">Play</button>
                             </div>
                         </div>
                     </article>
@@ -416,18 +430,18 @@
                         </picture>
                     <h3>Jake Bennett</h3>
                     <div class="about-contact">
-                        <a class="btn secondary" href="https://linkedin.com/in/jakebennett1" target="_blank" rel="noopener" aria-label="LinkedIn">
+                        <a class="btn secondary" href="https://linkedin.com/in/jakebennett1" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M16 8a6 6 0 0 1 6 6v6h-4v-6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v6h-4v-12h4v2a4 4 0 0 1 4-2z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="9" width="4" height="11" rx="1" stroke="currentColor" stroke-width="1.2"/><circle cx="4" cy="5" r="1.5" stroke="currentColor" stroke-width="1.2"/></svg>
                             LinkedIn
                         </a>
-                        <a class="btn secondary" href="https://jebennett204.github.io/Portfolio/" target="_blank" rel="noopener" aria-label="Portfolio">
+                        <a class="btn secondary" href="https://jebennett204.github.io/Portfolio/" target="_blank" rel="noopener noreferrer" aria-label="Portfolio">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M14 3h7v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 14L21 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="7" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/></svg>
                             Portfolio
                         </a>
-                        <a class="btn secondary" href="https://coursera.org/user/51bbfac673ee6242a43621565996aab3" target="_blank" rel="noopener" aria-label="Coursera">
+                        <a class="btn secondary" href="https://coursera.org/user/51bbfac673ee6242a43621565996aab3" target="_blank" rel="noopener noreferrer" aria-label="Coursera">
                             Coursera
                         </a>
-                        <a class="btn secondary" href="https://codecademy.com/profiles/JEBennett204" target="_blank" rel="noopener" aria-label="Codecademy">
+                        <a class="btn secondary" href="https://codecademy.com/profiles/JEBennett204" target="_blank" rel="noopener noreferrer" aria-label="Codecademy">
                             Codecademy
                         </a>
                     </div>
@@ -449,12 +463,12 @@
     </footer>
 
     <!-- Media modal (accessible) used for videos and images) -->
-    <div id="video-modal" class="video-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div id="video-modal" class="video-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Media viewer">
         <div class="video-modal__backdrop" data-close></div>
         <div class="video-modal__dialog" role="document">
-            <button class="video-modal__close" aria-label="Close media">×</button>
-            <button class="video-modal__prev" aria-label="Previous">‹</button>
-            <button class="video-modal__next" aria-label="Next">›</button>
+            <button class="video-modal__close" type="button" aria-label="Close media">×</button>
+            <button class="video-modal__prev" type="button" aria-label="Previous">‹</button>
+            <button class="video-modal__next" type="button" aria-label="Next">›</button>
             <div class="video-modal__content" tabindex="0"></div>
             <aside class="video-modal__meta" aria-hidden="true">
                 <h4 class="meta-title">Details</h4>
@@ -463,6 +477,6 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
